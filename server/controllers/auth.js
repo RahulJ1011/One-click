@@ -1,6 +1,7 @@
 const user = require('../model/auth');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer')
 const {OAuth2Client} = require('google-auth-library')
 const {generateAcessToken,generateRefreshToken} = require('../utils/TokenUtils')
 const register = async(req,res)=>
@@ -22,6 +23,32 @@ const register = async(req,res)=>
             Email:Email
         })
         await newUser.save();
+
+        const config = {
+            service:'gmail',
+            auth:{
+                user:'rahuljbhuvi@gmail.com',
+                pass:'wged jlsj awgj reip'
+            }
+        }
+
+        const transporter = nodemailer.createTransport(config);
+        const htmlContent = `
+        <h1> Hi ${FirstName} ${LastName} </h1>
+        <p>You have registered sucessfully into one click internship now you can collaborate to companies and u can get hired </p>
+        <p>Thanks for choosing one click internship</p>
+        <p>Best regards</p>
+        <p>One Click Internship Team</p>
+
+        `;
+        const message = {
+            from:'rahuljbhuvi@gmail.com',
+            to:Email,
+            subject:'Registration Success',
+            html:htmlContent
+        }
+
+        await transporter.sendMail(message);
         return res.status(201).json({msg:"User registered sucessfully"});
     }
     catch(err)

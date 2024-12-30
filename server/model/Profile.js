@@ -50,6 +50,11 @@ const profileSchema = new mongoose.Schema({
         type:String,
         required:true
 
+    },
+    PhoneNumber:
+    {
+        type:String,
+        required:true
     }
 },{
     timestamps:true
