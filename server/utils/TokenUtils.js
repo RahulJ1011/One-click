@@ -24,9 +24,4 @@ exports.oauth2Client = new google.auth.OAuth2(
 );
 
 
-
-
-
-
-
 module.exports = {generateAcessToken,generateRefreshToken}
