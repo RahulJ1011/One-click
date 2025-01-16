@@ -8,7 +8,7 @@ const register = async(req,res)=>
 {
     try
     {
-        const {FirstName,LastName,Password,Email} = req.body;
+        const {FirstName,LastName,Password,Email,Mobile} = req.body;
         const isUser = await user.findOne({Email:Email});
         if(isUser)
         {
@@ -20,7 +20,8 @@ const register = async(req,res)=>
             FirstName:FirstName,
             LastName:LastName,
             Password:hashedPassword,
-            Email:Email
+            Email:Email,
+            Mobile:Mobile
         })
         await newUser.save();
 
